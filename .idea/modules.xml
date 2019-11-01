@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/hashingalgo-commons.iml" filepath="$PROJECT_DIR$/.idea/modules/hashingalgo-commons.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hashingalgo-inputGenerator.iml" filepath="$PROJECT_DIR$/.idea/modules/hashingalgo-inputGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/hashingalgo-service.iml" filepath="$PROJECT_DIR$/.idea/modules/hashingalgo-service.iml" />
     </modules>
   </component>
