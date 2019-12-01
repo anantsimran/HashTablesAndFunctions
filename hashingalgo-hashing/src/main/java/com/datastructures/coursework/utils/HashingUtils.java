@@ -1,7 +1,6 @@
 package com.datastructures.coursework.utils;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public class HashingUtils {

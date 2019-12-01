@@ -5,6 +5,7 @@ import com.datastructures.coursework.api.HashFunction;
 import com.datastructures.coursework.api.HashFunctionGenerator;
 import com.datastructures.coursework.exception.CuckooCycleException;
 import com.datastructures.coursework.exception.NotFoundException;
+import com.datastructures.coursework.model.ActivityType;
 import com.datastructures.coursework.model.Pair;
 import com.datastructures.coursework.model.TimedValue;
 import com.datastructures.coursework.utils.HashingUtils;
@@ -59,13 +60,15 @@ public class CuckooHash implements Hash {
     @Override
     public TimedValue<Pair> search(int key) throws NotFoundException {
         long startTime = System.nanoTime();
-        int index1 = hashFunction[0].getHash(key);
+        int index1 = hashFunction[0].getHash(key).getValue();
         if(hashTable[0][index1]!=null && hashTable[0][index1].getKey().equals(key)){
-            return new TimedValue<>(hashTable[0][index1],System.nanoTime()- startTime);
+            return new TimedValue<Pair>(hashTable[0][index1], System.nanoTime()- startTime,
+                    1L , ActivityType.HASHTABLE);
         }
-        int index2 = hashFunction[1].getHash(key);
+        int index2 = hashFunction[1].getHash(key).getValue();
         if(hashTable[1][index2]!=null && hashTable[1][index2].getKey().equals(key)){
-            return new TimedValue<>(hashTable[1][index2],System.nanoTime()- startTime);
+            return new TimedValue<Pair>(hashTable[0][index2], System.nanoTime()- startTime,
+                    2L , ActivityType.HASHTABLE);
         }
         throw new NotFoundException("Key: "+ key + " Not found in hash table", System.nanoTime()- startTime);
     }

@@ -1,6 +1,7 @@
 package com.datastructures.coursework.api;
 
+import com.datastructures.coursework.model.TimedValue;
+
 public interface HashFunction {
-    public int getHash(int input);
-    public long getTotalHashTime();
+    public TimedValue<Integer> getHash(int input);
 }
