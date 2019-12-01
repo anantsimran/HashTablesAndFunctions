@@ -1,0 +1,6 @@
+rootProject.name = 'hashingalgo'
+include 'hashingalgo-commons'
+include 'hashingalgo-hashing'
+include 'hashingalgo-service'
+include 'hashingalgo-reportGenerator'
+
