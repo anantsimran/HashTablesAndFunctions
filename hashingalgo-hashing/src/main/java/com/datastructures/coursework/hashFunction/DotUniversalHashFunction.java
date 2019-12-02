@@ -1,6 +1,8 @@
 package com.datastructures.coursework.hashFunction;
 
 import com.datastructures.coursework.api.HashFunction;
+import com.datastructures.coursework.model.ActivityType;
+import com.datastructures.coursework.model.TimeCount;
 import com.datastructures.coursework.model.TimedValue;
 
 import java.util.ArrayList;
@@ -10,14 +12,11 @@ public class DotUniversalHashFunction implements HashFunction {
     private Integer m;
     private Integer a;
     private List<Integer> baseMRepresentation;
-    private long totalHashTime;
-
 
     public DotUniversalHashFunction(Integer m, Integer a) {
         this.m = m;
         this.a = a;
         this.baseMRepresentation = getBaseMRepresentation(a,m);
-        totalHashTime=0;
     }
 
     private List<Integer> getBaseMRepresentation(Integer x, Integer m) {
@@ -46,9 +45,9 @@ public class DotUniversalHashFunction implements HashFunction {
     @Override
     public TimedValue<Integer> getHash(int input) {
         long startTime = System.nanoTime();
-        int sum= getSum(getBaseMRepresentation(input,m), baseMRepresentation, m );
-        totalHashTime+= System.nanoTime()- startTime;
-        return sum;
+        return new TimedValue<>(getSum(getBaseMRepresentation(input,m), baseMRepresentation, m ),
+            new TimeCount(System.nanoTime()- startTime,null, ActivityType.HASH_FUNCTION)
+                );
     }
 
 }

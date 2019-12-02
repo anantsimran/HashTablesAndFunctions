@@ -1,7 +1,7 @@
 package com.datastructures.coursework.model;
 
 public enum ActivityType {
-    HASHTABLE,
-    HASH
-
+    HASH_FUNCTION,
+    HASH,
+    CUCKOO_REHASH
 }
