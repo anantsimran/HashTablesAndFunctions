@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoordinatePlotter implements Plotter {
-    private static final int NUMBER_OF_BINS = 50000;
+    private static final int NUMBER_OF_BINS = 500;
 
     @Override
     public void plot(Iterator<Coordinate> coordinates, String chartTitle, String xAxisTitle,
@@ -20,14 +20,11 @@ public class CoordinatePlotter implements Plotter {
             Coordinate coordinate = it.next();
             points.add(new Coordinate(xTransformer.transform(coordinate.getX()), yTransformer.transform(coordinate.getY())));
         }
-        Collections.sort(points);
-
 
         TreeMap<Double, Double> transformedCoordinates = transform(points);
 
         List<Coordinate> transformedPointsList = transformedCoordinates.entrySet().stream()
                 .map(v -> new Coordinate(v.getKey(), v.getValue())).collect(Collectors.toList());
-        Collections.sort(transformedPointsList);
         XYPlotter xyPlotter= new XYPlotter(chartTitle, transformedPointsList, xAxisTitle, yAxisTitle);
         xyPlotter.pack( );
         RefineryUtilities.centerFrameOnScreen( xyPlotter );
@@ -66,9 +63,9 @@ public class CoordinatePlotter implements Plotter {
         });
 
         double median;
-        if (partition.size() % 2 == 0)
-            median = ((double)partition.get(partition.size()/2).getY() + (double)partition.get(partition.size()/2 - 1).getY()/2);
-        else
+//        if (partition.size() % 2 == 0)
+//            median = ((double)partition.get(partition.size()/2).getY() + (double)partition.get(partition.size()/2 - 1).getY()/2);
+//        else
             median = (double)partition.get(partition.size()/2).getY();
         return median;
     }

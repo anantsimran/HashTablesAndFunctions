@@ -45,7 +45,8 @@ public class DotUniversalHashFunction implements HashFunction {
     @Override
     public TimedValue<Integer> getHash(int input) {
         long startTime = System.nanoTime();
-        return new TimedValue<>(getSum(getBaseMRepresentation(input,m), baseMRepresentation, m ),
+        Integer sum = getSum(getBaseMRepresentation(input, m), baseMRepresentation, m);
+        return new TimedValue<>(sum,
             new TimeCount(System.nanoTime()- startTime,null, ActivityType.HASH_FUNCTION)
                 );
     }

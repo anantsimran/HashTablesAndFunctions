@@ -29,7 +29,7 @@ public class Coordinate implements Comparable<Coordinate>{
         if(this.getX().compareTo(o.getX())==0){
             return this.getY().compareTo(o.getY());
         }
-        return this.getX().compareTo(o.getX());
+        return o.getX().compareTo(this.getX());
     }
 
 }

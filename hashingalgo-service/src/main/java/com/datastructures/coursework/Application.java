@@ -71,9 +71,6 @@ public class Application {
 
 
 
-
-
-
             List<Integer> inserted = new ArrayList<>();
             for (int i =0; i <n;i++){
                 int number1 = randomGenerator.uniformDistribution(universeSize);
@@ -115,7 +112,7 @@ public class Application {
         Plotter tablePlotter = new CoordinatePlotter();
 
 
-        tablePlotter.plot(resultInsert.iterator(),chartTitle,xAxisTitle,yAxisTitle,minusLogTransformer,logTransformer);
+        tablePlotter.plot(resultInsert.iterator(),chartTitle,xAxisTitle,yAxisTitle,identityTransformer,identityTransformer);
     }
 
     private static HashFunctionGenerator getHashFunctionGenerator(RandomGenerator randomGenerator, HashingUtils hashingUtils) {
