@@ -23,6 +23,7 @@ public class CuckooHash implements Hash {
     private HashingUtils hashingUtils;
     private int present;
     private TimeCountUtils timeCountUtils;
+    private double resizeAlpha;
 
     private Pair[][] hashTable;
 
@@ -52,12 +53,13 @@ public class CuckooHash implements Hash {
         return present;
     }
 
-    public CuckooHash( int universeSize, HashingUtils hashingUtils, HashFunctionGenerator hashFunctionGenerator, TimeCountUtils timeCountUtils) {
+    public CuckooHash(int universeSize, HashingUtils hashingUtils, HashFunctionGenerator hashFunctionGenerator, TimeCountUtils timeCountUtils, double resizeAlpha) {
         this.maximumSize=1019;
         this.universeSize = universeSize;
         this.hashingUtils = hashingUtils;
         this.hashFunctionGenerator = hashFunctionGenerator;
         this.timeCountUtils = timeCountUtils;
+        this.resizeAlpha = resizeAlpha;
         initialise(maximumSize);
 
     }
@@ -195,9 +197,9 @@ public class CuckooHash implements Hash {
             hashFunctionTimeTaken+=timeCountUtils.getActivityTimeCount(repeatInsertTimeCount, ActivityType.HASH_FUNCTION).get().getTimeTaken();
         }
         present++;
-        if (present>maximumSize/2){
+        if (present>maximumSize* resizeAlpha){
             int newMaximumSize = hashingUtils.getNextPrime(maximumSize*2);
-            TimeCount rehashTimeCount =  rehashTable(maximumSize);
+            TimeCount rehashTimeCount =  rehashTable(newMaximumSize);
             operationsPerformed+= rehashTimeCount.getOperationsPerformed();
             noOfRehashes+=timeCountUtils.getActivityTimeCount(rehashTimeCount, ActivityType.CUCKOO_REHASH).get().getOperationsPerformed();
             hashFunctionTimeTaken+=timeCountUtils.getActivityTimeCount(rehashTimeCount, ActivityType.HASH_FUNCTION).get().getTimeTaken();

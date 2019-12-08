@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class ChainHash implements Hash<Void> {
+public class ChainHash implements Hash {
     private HashFunction hashFunction;
     private int size;
 

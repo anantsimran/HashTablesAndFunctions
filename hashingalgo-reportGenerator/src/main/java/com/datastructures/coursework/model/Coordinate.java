@@ -1,6 +1,6 @@
 package com.datastructures.coursework.model;
 
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate>{
     private Double X, Y;
 
     public Coordinate(Double x, Double y) {
@@ -23,4 +23,13 @@ public class Coordinate {
     public void setY(Double y) {
         Y = y;
     }
+
+    @Override
+    public int compareTo(Coordinate o) {
+        if(this.getX().compareTo(o.getX())==0){
+            return this.getY().compareTo(o.getY());
+        }
+        return this.getX().compareTo(o.getX());
+    }
+
 }

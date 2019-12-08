@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id "application"
 }
 
 group 'com.datastructures.coursework'
@@ -10,6 +10,17 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
+
+
+apply plugin : "java"
+ext {
+    javaMainClass = "ccom.datastructures.coursework.Application"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
 
 dependencies {
     compile project(':hashingalgo-commons')

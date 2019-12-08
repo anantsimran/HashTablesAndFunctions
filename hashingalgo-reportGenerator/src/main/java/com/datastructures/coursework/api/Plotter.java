@@ -4,7 +4,7 @@ import com.datastructures.coursework.model.Coordinate;
 
 import java.util.Iterator;
 
-public interface Plot {
+public interface Plotter {
     void plot( Iterator<Coordinate> coordinates,
                String chartTitle,
                String xAxisTitle, String yAxisTitle,

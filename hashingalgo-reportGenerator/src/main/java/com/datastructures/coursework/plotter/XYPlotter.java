@@ -34,11 +34,11 @@ public class XYPlotter extends ApplicationFrame {
         return dataset;
     }
 
-    public XYPlotter(String title, List<Coordinate> coordinates) {
+    public XYPlotter(String title, List<Coordinate> coordinates, String xAxisTitle, String yAxisTitle) {
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
                 title,
-                "log(1+alpha)","log(time taken for each operation)",
+                xAxisTitle,yAxisTitle,
                 createDataset( title,  coordinates),
                 PlotOrientation.VERTICAL,
                 true,true,false);
