@@ -8,7 +8,8 @@ public interface Plotter {
     void plot( Iterator<Coordinate> coordinates,
                String chartTitle,
                String xAxisTitle, String yAxisTitle,
-               Transformer xTransformer, Transformer yTransformer
+               boolean isAmortised, Transformer xTransformer,
+               Transformer yTransformer
                );
 
 }

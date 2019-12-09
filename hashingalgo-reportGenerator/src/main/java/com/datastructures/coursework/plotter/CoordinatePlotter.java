@@ -11,11 +11,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoordinatePlotter implements Plotter {
-    private static final int NUMBER_OF_BINS = 5000;
+    private static final int NUMBER_OF_BINS = 500;
 
     @Override
     public void plot(Iterator<Coordinate> coordinates, String chartTitle, String xAxisTitle,
-                     String yAxisTitle, Transformer xTransformer, Transformer yTransformer) {
+                     String yAxisTitle,
+                     boolean isAmortised, Transformer xTransformer, Transformer yTransformer) {
 
         List<Coordinate> points = new ArrayList<>();
         for (Iterator<Coordinate> it = coordinates; it.hasNext(); ) {
@@ -27,7 +28,12 @@ public class CoordinatePlotter implements Plotter {
 
         List<Coordinate> transformedPointsList = transformedCoordinates.entrySet().stream()
                 .map(v -> new Coordinate(v.getKey(), v.getValue())).collect(Collectors.toList());
-        writeToFile("Universal_AverageCase.csv", transformedPointsList);
+
+        if (isAmortised){
+            transformedPointsList = getAmortised(transformedPointsList);
+        }
+
+        writeToFile(chartTitle, transformedPointsList);
 
 
 //        XYPlotter xyPlotter= new XYPlotter(chartTitle, transformedPointsList, xAxisTitle, yAxisTitle);
@@ -35,6 +41,18 @@ public class CoordinatePlotter implements Plotter {
 //        RefineryUtilities.centerFrameOnScreen( xyPlotter );
 //        xyPlotter.setVisible( true );
     }
+
+    private List<Coordinate> getAmortised(List<Coordinate> transformedPointsList) {
+        List<Coordinate> amortised = new ArrayList<>();
+        double sum =0;
+        for(Coordinate coordinate: transformedPointsList){
+            amortised.add(new Coordinate(coordinate.getX(), coordinate.getY()+ sum));
+            sum+=coordinate.getY();
+        }
+        return amortised;
+
+    }
+
 
     private void writeToFile(String fileName, List<Coordinate> coordinates){
         File file = new File("src"+  File.separator+ "main"+  File.separator+  "resources"+  File.separator+ fileName);

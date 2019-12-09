@@ -7,6 +7,7 @@ import com.datastructures.coursework.api.Plotter;
 import com.datastructures.coursework.api.Transformer;
 import com.datastructures.coursework.exception.NotFoundException;
 import com.datastructures.coursework.hashFunctionGenerator.UniversalHashFunctionGenerator;
+import com.datastructures.coursework.model.ActivityType;
 import com.datastructures.coursework.model.Coordinate;
 import com.datastructures.coursework.model.Pair;
 import com.datastructures.coursework.model.TimedValue;
@@ -37,7 +38,7 @@ public class Application {
         int numberOfIterations = 100;
         int n = 20000;
         int universeSize = 100000000;
-        double resizeAlpha = 0.5;
+        double resizeAlpha = 0.8;
 
 
         List<Integer> primes = applicationUtils.getList();
@@ -51,6 +52,8 @@ public class Application {
 
 
         List<Coordinate> resultInsert = new ArrayList<>();
+        List<Coordinate> resultInsertOperations = new ArrayList<>();
+        List<Coordinate> resultInsertNoOfRehashes = new ArrayList<>();
         List<Coordinate> resultSearchFound = new ArrayList<>();
         List<Coordinate> resultSearchNotFound = new ArrayList<>();
 
@@ -83,6 +86,9 @@ public class Application {
 
 
                 resultInsert.add(new Coordinate(alpha,(double) timedValue.getTimeCount().getTimeTaken()));
+                resultInsertOperations.add(new Coordinate(alpha,(double) timedValue.getTimeCount().getOperationsPerformed()));
+                resultInsertNoOfRehashes.add(new Coordinate(alpha,(double) timeCountUtils.getActivityTimeCount(timedValue.getTimeCount(), ActivityType.CUCKOO_REHASH).get().getOperationsPerformed()));
+
                 try {
                     TimedValue<Pair> searchTimedValue = hash.search(getInsertedRandom(randomGenerator, inserted));
                     resultSearchFound.add(new Coordinate(alpha,(double) searchTimedValue.getTimeCount().getTimeTaken()));
@@ -102,9 +108,13 @@ public class Application {
         System.out.println("created HashTable");
 
 
+        String funcType = "Universal_";
 
-        String chartTitle = "Inserts. + "+ hashFunction;
-        String xAxisTitle = "alpha";
+        String chartTitle = funcType+ "Inserts.Timetaken";
+        String chartTitleAmortised = funcType+ "Inserts.Timetaken.Amortised";
+        String chartTitleOperationsAmortised = funcType+"_"+ "Inserts.Operations.Amortised";
+        String chartTitleRehashes = funcType+"_"+ "Inserts.NoOfRehashes.Amortised";
+        String xAxisTitle =  "alpha";
         String yAxisTitle = "time taken";
 
 
@@ -112,7 +122,10 @@ public class Application {
         Plotter tablePlotter = new CoordinatePlotter();
 
 
-        tablePlotter.plot(resultInsert.iterator(),chartTitle,xAxisTitle,yAxisTitle,identityTransformer,identityTransformer);
+        tablePlotter.plot(resultInsert.iterator(),chartTitle,xAxisTitle,yAxisTitle,false,identityTransformer,identityTransformer);
+        tablePlotter.plot(resultInsert.iterator(),chartTitleAmortised,xAxisTitle,yAxisTitle,true,identityTransformer,identityTransformer);
+        tablePlotter.plot(resultInsertOperations.iterator(),chartTitleOperationsAmortised,xAxisTitle,yAxisTitle,true,identityTransformer,identityTransformer);
+        tablePlotter.plot(resultInsertNoOfRehashes.iterator(),chartTitleRehashes,xAxisTitle,yAxisTitle,false,identityTransformer,identityTransformer);
     }
 
     private static HashFunctionGenerator getHashFunctionGenerator(RandomGenerator randomGenerator, HashingUtils hashingUtils) {
