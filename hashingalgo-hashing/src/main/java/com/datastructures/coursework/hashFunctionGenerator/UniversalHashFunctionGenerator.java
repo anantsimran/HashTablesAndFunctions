@@ -1,7 +1,8 @@
-package com.datastructures.coursework.hashFunction;
+package com.datastructures.coursework.hashFunctionGenerator;
 
 import com.datastructures.coursework.api.HashFunction;
 import com.datastructures.coursework.api.HashFunctionGenerator;
+import com.datastructures.coursework.hashFunction.DotUniversalHashFunction;
 import com.datastructures.coursework.utils.HashingUtils;
 import com.datastructures.coursework.utils.RandomGenerator;
 

@@ -3,13 +3,15 @@ package com.datastructures.coursework.plotter;
 import com.datastructures.coursework.api.Plotter;
 import com.datastructures.coursework.api.Transformer;
 import com.datastructures.coursework.model.Coordinate;
-import org.jfree.ui.RefineryUtilities;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoordinatePlotter implements Plotter {
-    private static final int NUMBER_OF_BINS = 500;
+    private static final int NUMBER_OF_BINS = 5000;
 
     @Override
     public void plot(Iterator<Coordinate> coordinates, String chartTitle, String xAxisTitle,
@@ -25,11 +27,35 @@ public class CoordinatePlotter implements Plotter {
 
         List<Coordinate> transformedPointsList = transformedCoordinates.entrySet().stream()
                 .map(v -> new Coordinate(v.getKey(), v.getValue())).collect(Collectors.toList());
-        XYPlotter xyPlotter= new XYPlotter(chartTitle, transformedPointsList, xAxisTitle, yAxisTitle);
-        xyPlotter.pack( );
-        RefineryUtilities.centerFrameOnScreen( xyPlotter );
-        xyPlotter.setVisible( true );
+        writeToFile("Universal_AverageCase.csv", transformedPointsList);
+
+
+//        XYPlotter xyPlotter= new XYPlotter(chartTitle, transformedPointsList, xAxisTitle, yAxisTitle);
+//        xyPlotter.pack( );
+//        RefineryUtilities.centerFrameOnScreen( xyPlotter );
+//        xyPlotter.setVisible( true );
     }
+
+    private void writeToFile(String fileName, List<Coordinate> coordinates){
+        File file = new File("src"+  File.separator+ "main"+  File.separator+  "resources"+  File.separator+ fileName);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            for(Coordinate coordinate: coordinates){
+                fileWriter.write(coordinate.toString());
+                fileWriter.write(System.getProperty( "line.separator" ));
+            }
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private TreeMap<Double, Double> transform(List<Coordinate> points) {
         Collections.sort( points, (x1, x2) -> {

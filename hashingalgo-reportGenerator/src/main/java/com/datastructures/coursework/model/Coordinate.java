@@ -32,4 +32,8 @@ public class Coordinate implements Comparable<Coordinate>{
         return o.getX().compareTo(this.getX());
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(X)+ ","+ String.valueOf(Y);
+    }
 }

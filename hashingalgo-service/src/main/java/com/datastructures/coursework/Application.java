@@ -6,7 +6,7 @@ import com.datastructures.coursework.api.HashFunctionGenerator;
 import com.datastructures.coursework.api.Plotter;
 import com.datastructures.coursework.api.Transformer;
 import com.datastructures.coursework.exception.NotFoundException;
-import com.datastructures.coursework.hashFunction.UniversalHashFunctionGenerator;
+import com.datastructures.coursework.hashFunctionGenerator.UniversalHashFunctionGenerator;
 import com.datastructures.coursework.model.Coordinate;
 import com.datastructures.coursework.model.Pair;
 import com.datastructures.coursework.model.TimedValue;
@@ -103,9 +103,9 @@ public class Application {
 
 
 
-        String chartTitle = "Inserts. HashFunction: + "+ hashFunction;
-        String xAxisTitle = "log(alpha)";
-        String yAxisTitle = "log (time taken)";
+        String chartTitle = "Inserts. + "+ hashFunction;
+        String xAxisTitle = "alpha";
+        String yAxisTitle = "time taken";
 
 
 
