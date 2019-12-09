@@ -186,15 +186,15 @@ public class CuckooHash implements Hash {
             operationsPerformed+= insertTimeCount.getOperationsPerformed();
         } catch (CuckooCycleException e) {
             TimeCount rehashTimeCount =  rehashTable(maximumSize);
-//            TimeCount repeatInsertTimeCount = insert(pair).getTimeCount();
+            TimeCount repeatInsertTimeCount = insert(pair).getTimeCount();
 
             operationsPerformed+= rehashTimeCount.getOperationsPerformed();
             noOfRehashes+=timeCountUtils.getActivityTimeCount(rehashTimeCount, ActivityType.CUCKOO_REHASH).get().getOperationsPerformed();
             hashFunctionTimeTaken+=timeCountUtils.getActivityTimeCount(rehashTimeCount, ActivityType.HASH_FUNCTION).get().getTimeTaken();
 
-//            operationsPerformed+= repeatInsertTimeCount.getOperationsPerformed();
-//            noOfRehashes+=timeCountUtils.getActivityTimeCount(repeatInsertTimeCount, ActivityType.CUCKOO_REHASH).get().getOperationsPerformed();
-//            hashFunctionTimeTaken+=timeCountUtils.getActivityTimeCount(repeatInsertTimeCount, ActivityType.HASH_FUNCTION).get().getTimeTaken();
+            operationsPerformed+= repeatInsertTimeCount.getOperationsPerformed();
+            noOfRehashes+=timeCountUtils.getActivityTimeCount(repeatInsertTimeCount, ActivityType.CUCKOO_REHASH).get().getOperationsPerformed();
+            hashFunctionTimeTaken+=timeCountUtils.getActivityTimeCount(repeatInsertTimeCount, ActivityType.HASH_FUNCTION).get().getTimeTaken();
         }
         present++;
         if (present>maximumSize* resizeAlpha){
