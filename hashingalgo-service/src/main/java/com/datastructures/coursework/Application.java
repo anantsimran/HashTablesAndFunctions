@@ -6,7 +6,7 @@ import com.datastructures.coursework.api.HashFunctionGenerator;
 import com.datastructures.coursework.api.Plotter;
 import com.datastructures.coursework.api.Transformer;
 import com.datastructures.coursework.exception.NotFoundException;
-import com.datastructures.coursework.hashFunctionGenerator.UniversalHashFunctionGenerator;
+import com.datastructures.coursework.hashFunctionGenerator.KIndependentHashFunctionGenerator;
 import com.datastructures.coursework.model.ActivityType;
 import com.datastructures.coursework.model.Coordinate;
 import com.datastructures.coursework.model.Pair;
@@ -36,9 +36,9 @@ public class Application {
         ApplicationUtils applicationUtils = new ApplicationUtils();
 
         int numberOfIterations = 100;
-        int n = 20000;
+        int n = 2000;
         int universeSize = 100000000;
-        double resizeAlpha = 0.8;
+        double resizeAlpha = 0.1;
 
 
         List<Integer> primes = applicationUtils.getList();
@@ -108,7 +108,7 @@ public class Application {
         System.out.println("created HashTable");
 
 
-        String funcType = "Universal_";
+        String funcType = "k_5";
 
         String chartTitle = funcType+ "Inserts.Timetaken";
         String chartTitleAmortised = funcType+ "Inserts.Timetaken.Amortised";
@@ -129,7 +129,7 @@ public class Application {
     }
 
     private static HashFunctionGenerator getHashFunctionGenerator(RandomGenerator randomGenerator, HashingUtils hashingUtils) {
-        return new UniversalHashFunctionGenerator(randomGenerator, hashingUtils);
+        return new KIndependentHashFunctionGenerator(randomGenerator, hashingUtils, 5);
 
     }
 

@@ -48,7 +48,6 @@ public class KIndependentHashFunction implements HashFunction {
         Long sum =0L;
         for (int i = 0; i < a.size(); i++) {
             sum+=getMultiplyModulus(a.get(i),getPowerModulus(input,i,this.p),this.p);
-            sum%=p;
         }
         sum%=this.m;
         return new TimedValue<Integer>(sum.intValue(),
